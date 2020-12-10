@@ -122,7 +122,7 @@ class baseClock {
     drawSecondLines() {
         
         // loops through clock every 30 degrees
-        for (var i = 0; i < 12*30; i += 5) {
+        for (var i = 0; i < 12*30; i += 6) {
 
             // Do not draw over main lines
             if (i % 30 == 0) {
@@ -171,15 +171,23 @@ class baseClock {
 
 class ticks {
     constructor() {
-        return "FIXME";
+        this.c = document.getElementById("innerCanvas");
+        this.ctx = this.c.getContext("2d");
+
+        this.iterate();
+    }
+
+    calcLine() {
+
     }
 
     iterate() {
-        return "FIXME";
-    }
+        this.iterThis = () => {
 
-    get image() {
-        return "FIXME";
+        }
+
+        this.iterThis();
+        setInterval(this.iterThis, 1000);
     }
 }
 
