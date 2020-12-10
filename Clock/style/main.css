@@ -1,34 +1,66 @@
+/*--------------text based stuff ---------------------*/
+
+p {
+
+}
+
+h1 {
+
+}
+
+.title {
+    text-align: center; 
+    font-size: 
+}
+
+
+
 body {
     background-color: gray;
     font-size: 2rem;
     color: white;
+    margin: 0;
+    padding: 0; 
 }
 
-.text {
+main {
+    padding-top: 5rem;  
+    display: flex; 
+    justify-content: center;
+}
+
+.container {
+    width: 500px; 
+    padding: 10px; 
+}
+
+.content {
     font-size: 2rem;
     color: white;
 }
 
-.special {
-    font-size: 2.3rem;
-    color: white;
-}
-
-.normalize {
-    margin-top: 2rem;
-}
-
-.box {
+.display-clock {
+    margin-top: 2rem; 
+    padding: 1rem; 
     border: solid;
     border-color: white;
+    background-color: rgb(65, 64, 64); 
+    color: rgb(167, 209, 170); 
 }
 
-.center {
-    align-items: center;
-}
-
-#topBar {
-    margin: auto;
+#navbar {
     background-color: black;
-    height: 3rem;
+    height: 3rem; 
+    width: 100%;
+    padding: 10%;
+    display: block; 
+}
+
+.test{
+    font-size: 2rem;
+}
+
+@media only screen and (max-width: 1000px) {
+ 
+    
 }
