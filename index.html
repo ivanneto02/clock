@@ -8,7 +8,7 @@
 
     <body>
         <div id="navbar">
-            <p class="test">
+            <p class="navbar-text">
                 Clock
             </p>
         </div>
@@ -25,11 +25,43 @@
                     </div>
                 </div>
 
-                <div class="content">
-                    test. why won't this work. More test.
+                <div class="display-clock">
+                    <div id="stopwatch">
+                        Stopwatch:<br>
+                        00:00:00
+                    </div>
+                    <button id="startbutton" onclick="newStopwatch.start()">Start</button>
+                    <button id="stopbutton" onclick="newStopwatch.stop()">Stop</button>
                 </div>
 
+                <div class="content">
+                    test. why won't this work. More test. hello
+                </div>
+
+                <div>
+                    <canvas id="myCanvas" width="500" height="500" style="background-color: white">
+                </div>
             </div>
+ 
+            <div class="display-clock">
+                <div id="alarm">
+                    Alarm: <br> 
+                    00:00:00
+                </div>
+
+                <button id="startAlarm" onclick="const newAlarm = new alarm(1);">Start</button>
+                <button id="stopAlarm" onclick="myAlarm.reset()">Reset</button>
+
+                <!-- Try and get it so that these only appear once you start the alarm -->
+                <button id="pauseAlarm" onclick="myAlarm.pause()">Pause</button>
+                <button id="snoozeAlarm" onclick="myAlarm.snooze()">Snooze</button>
+                
+                <p id="alarmMessage"></p>
+            </div>
+
+       
+
+            
         </main>
 
         <script type="text/javascript" src="javascript/main.js"></script>
