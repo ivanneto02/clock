@@ -67,6 +67,7 @@ class digitalClock {
             console.log('test');
         }
 
+        this.iterThis();
         // Call iterThis every second
         setInterval(this.iterThis, 1000);
     }
