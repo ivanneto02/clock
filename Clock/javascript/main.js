@@ -24,7 +24,7 @@ class clock {
         this.minutes = this.currtime.getMinutes();
         this.seconds = this.currtime.getSeconds();
 
-        return `${this.pad(this.hours)}:${this.pad(this.minutes)}:${this.pad(this.seconds)}: this`;
+        return `${this.pad(this.formatHourM(this.hours))}:${this.pad(this.minutes)}:${this.pad(this.seconds)} ${this.determineMeridiem(this.hours)}`;
     }
 
     //added padding to the time so it always shows twice
@@ -40,10 +40,18 @@ class clock {
         return value;
     }
 
-    det(hour) {
-        if(hour>10) {
-            return "AM"
+    determineMeridiem(hour) {
+        if(hour<12 && hour >= 0) {
+            return "AM";
         }
+        return "PM";
+    }
+
+    formatHourM(hour) {
+        if(hour>12) {
+            return hour-=12;
+        }
+        return hour;
     }
 
     iterate() {
