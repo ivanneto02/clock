@@ -28,10 +28,12 @@ class clock {
 
     iterate() {
         document.getElementById("time").innerHTML = "Current date: " + this.formatDate() + "<br>" + "Current time: " + this.formatTime();
-
+        
         setTimeout(() => {
             this.iterate();
         }, 1000);
+        
+
     }
 }
 
