@@ -8,11 +8,18 @@ h1 {
 
 }
 
-.title {
-    text-align: center; 
-    font-size: 
+#navbar {
+    background-color: black;
+    height: 3rem; 
+    width: 100%;
+    padding: 10%;
+    display: block; 
 }
 
+.title {
+    text-align: center; 
+    font-size: 1rem;
+}
 
 
 body {
@@ -48,13 +55,7 @@ main {
     color: rgb(167, 209, 170); 
 }
 
-#navbar {
-    background-color: black;
-    height: 3rem; 
-    width: 100%;
-    padding: 10%;
-    display: block; 
-}
+
 
 .test{
     font-size: 2rem;
