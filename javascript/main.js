@@ -60,10 +60,15 @@ class digitalClock {
     }
 
     iterate() {
-        document.getElementById("time").innerHTML = "Current date: " + this.formatDate() + "<br>" + "Current time: " + this.formatTime();       
-        setTimeout(() => {
-            this.iterate();
-        }, 100);
+        // Function to iterate
+        this.iterThis = () => {
+            document.getElementById("time").innerHTML = "Current date: " + this.formatDate() + "<br>" + "Current time: " + this.formatTime();
+            console.log('test');
+        }
+
+        this.iterThis();
+        // Call iterThis every second
+        setInterval(this.iterThis, 1000);
     }
 }
 
@@ -140,6 +145,12 @@ class baseClock {
         
         // loops through clock every 30 degrees
         for (var i = 0; i < 12*30; i += 5) {
+
+            // Do not draw over main lines
+            if (i % 30 == 0) {
+                continue;
+            }
+            
             // Segments to be printed
             this.segmentX = this.centerX + this.clockRadius*(Math.cos(i*(Math.PI/180)));
             this.segmentY = this.centerY + this.clockRadius*(Math.sin(i*(Math.PI/180)));
@@ -162,6 +173,7 @@ class baseClock {
             this.xCoord = 242 + (this.clockRadius - 35)*(Math.cos((i)*(Math.PI/180)));
             this.yCoord = 257 + (this.clockRadius - 35)*(Math.sin((i)*(Math.PI/180)));
 
+            // Replace 13, 14, 15 with 1, 2, 3
             switch(i/30 + 3) {
                 case 13:
                     this.ctx.strokeText(1, this.xCoord, this.yCoord);
@@ -308,9 +320,6 @@ class stopwatch {
           //TODO!!!
       }
 }
-
-
-
 
 class alarm {
     constructor(variable) {
