@@ -8,9 +8,9 @@
 
     <body>
         <div id="navbar">
-            <p class="navbar-text">
+            <a class="navbar-text">
                 Clock
-            </p>
+            </a>
         </div>
         <main> 
             <div class="container"> 
@@ -33,10 +33,7 @@
                     <button id="startbutton" onclick="newStopwatch.start()">Start</button>
                     <button id="stopbutton" onclick="newStopwatch.stop()">Stop</button>
                 </div>
-
-                <div id="tester" class="content">
-                    test. why won't this work. More test. hello
-                </div>
+                <!--->
 
                 <div>
                     <canvas id="myCanvas" width="500" height="500" style="background-color: white">
@@ -45,20 +42,20 @@
                 </div>
             </div>
  
-            <div class="display-clock">
-                <div id="alarm">
-                    Alarm: <br> 
+            <div class="display-clock">        
+                <input type="number" id="hour" value="0">
+                <input type="number" id="minute" value="0">
+                <input type="number" id="second" value="0">
+
+                <button onclick="const myTimer = new Timer();">Start</button>
+                <button onclick="pauseFunction()">Pause</button>
+                <button onclick="restartFunction()">Restart</button>
+
+                <div id="timer">
+                    Timer:<br>
                     00:00:00
-                </div>
-
-                <button id="startAlarm" onclick="const newAlarm = new alarm(1);">Start</button>
-                <button id="stopAlarm" onclick="myAlarm.reset()">Reset</button>
-
-                <!-- Try and get it so that these only appear once you start the alarm -->
-                <button id="pauseAlarm" onclick="myAlarm.pause()">Pause</button>
-                <button id="snoozeAlarm" onclick="myAlarm.snooze()">Snooze</button>
-                
-                <p id="alarmMessage"></p>
+                </div>  
+    
             </div>
             
         </main>

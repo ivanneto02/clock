@@ -10,17 +10,20 @@ class digitalClock {
     formatDate() {
         this.currdate = new Date();
 
-        this.year = this.currdate.getFullYear();
-        this.month = this.currdate.getMonth();
-        this.day = this.currdate.getDay();
+        // Gets local date
+        this.locDate = this.currdate.toLocaleDateString();
 
-        return `${this.year}-${this.month}-${this.pad(this.day)}`;
-
+        return `${this.locDate}`;
     }
 
     formatTime() {
         this.currtime = new Date();
+        
+        this.locTime = this.currtime.toLocaleTimeString();
 
+        return `${this.locTime}`;
+        
+        /*
         this.hours = this.currtime.getHours();
         this.minutes = this.currtime.getMinutes();
         this.seconds = this.currtime.getSeconds();
@@ -30,12 +33,14 @@ class digitalClock {
         }
         
         return `${this.pad(this.formatHourM(this.hours))}:${this.pad(this.minutes)}:${this.pad(this.seconds)} ${this.determineMeridiem(this.hours)}`;
+        */
     }
 
     /*
     This function adds padding to a string, so that the length will always be 2.
     In a way, it replaces the python zfill function.
     */
+   /*
     pad(input) {
         let value = input.toString();
 
@@ -58,12 +63,12 @@ class digitalClock {
         }
         return hour;
     }
+    */
 
     iterate() {
         // Function to iterate
         this.iterThis = () => {
             document.getElementById("time").innerHTML = "Current date: " + this.formatDate() + "<br>" + "Current time: " + this.formatTime();
-            console.log('test');
         }
 
         this.iterThis();
@@ -93,18 +98,19 @@ class baseClock {
 
     //every second, clears the clock then redraws
     iterate() {
-        this.clearClock();
-        this.drawCircle();
-        this.drawMainLines();
-        this.drawSecondLines();
-        this.drawNumbers();
-        this.drawSecondsHand();
-        this.drawHoursHand();
+        this.iterThis = () => {
+            this.clearClock();
+            this.drawCircle();
+            this.drawMainLines();
+            this.drawSecondLines();
+            this.drawNumbers();
+            this.drawSecondsHand();
+            this.drawHoursHand();
+        }
 
+        this.iterThis();
         //every second, call iterate
-        setTimeout(() => {
-            this.iterate();
-        }, 100);
+        setInterval(this.iterThis, 1000);
     }
 
     clearClock() {
@@ -208,8 +214,6 @@ class baseClock {
         this.ctx.moveTo(this.centerX, this.centerY);
         this.ctx.lineTo(this.centerX + this.xOffsetHours, this.centerY + this.yOffsetHours);
         this.ctx.stroke();
-
-        document.getElementById("tester").innerHTML = this.u;
     }
 
 
@@ -224,28 +228,6 @@ class baseClock {
         this.ctx.moveTo(this.centerX, this.centerY);
         this.ctx.lineTo(this.centerX + this.xOffsetSeconds, this.centerY + this.yOffsetSeconds);
         this.ctx.stroke();
-    }
-}
-
-class ticks {
-    constructor() {
-        this.c = document.getElementById("innerCanvas");
-        this.ctx = this.c.getContext("2d");
-
-        this.iterate();
-    }
-
-    calcLine() {
-
-    }
-
-    iterate() {
-        this.iterThis = () => {
-
-        }
-
-        this.iterThis();
-        setInterval(this.iterThis, 1000);
     }
 }
 
@@ -274,7 +256,6 @@ class stopwatch {
             setTimeout(() => {
                 this.iterate();
             }, 1);
-
         }
     }
 
@@ -329,50 +310,81 @@ class stopwatch {
       }
 }
 
-class alarm {
-    constructor(variable) {
-        switch(variable) {
-            case 1:
-                this.alarmTime = prompt("Set alarm length: ", "3");
-                this.start();
-            case 4: 
-                this.alarmSnooze = prompt("Snooze for how long?", "5");
-                this.alarmTime +=  this.alarmSnooze;
-                this.snooze(); 
-        }
+class Timer {
+    constructor() {
+        // Define local vars
+        let hr = parseInt(document.getElementById("hour").value);
+        let min = parseInt(document.getElementById("minute").value);
+        let sec = parseInt(document.getElementById("second").value);
+    
+
+        
+        // Define total seconds for user input
+        this.totalSeconds = (hr*60*60) + (min*60) + sec;
+    
+        this.iterate();
     }
 
-    start() {
-        if (this.alarmTime !=null) {
-            document.getElementById("alarmMessage").innerHTML = "Alarm time: " + this.alarmTime; 
+    // Formats numbers to be two digits
+    pad(input) {
+        let value = input.toString();
+
+        if(value.length < 2 && value.length !=0) {
+            return "0" + value;
         }
-        console.log(this.alarmTime);
+        return value;
+    }
+
+    startFunction() {
+
+        // Hours
+        if (this.totalSeconds >= 3600) {
+            this.hour = Math.floor(this.totalSeconds/60/60);
+        } else if (this.totalSeconds < 3600) {
+            this.hour = 0; 
+        }
+
+        // Minutes
+        if (this.totalSeconds >= 60) {
+            this.minute = Math.floor(this.totalSeconds/60)%60;
+        } else if (this.totalSeconds < 60) {
+            this.minute = 0; 
+        }
+
+        // Seconds
+        if (this.totalSeconds >= 0) {
+            this.seconds = this.totalSeconds%60; 
+        }
+    
+        // Time format
+        if (this.totalSeconds >= 0) {
+            --this.totalSeconds;
+            document.getElementById("timer").innerHTML = `<div>Timer: <br> ${this.pad(this.hour)}:${this.pad(this.minute)}:${this.pad(this.seconds)} </div>`;
+        }
+        else if (this.totalSeconds <= 0) {
+            document.getElementById("timer").innerHTML = "Finished!";
+            clearInterval();
+        }
     }
 
     iterate() {
-        function isRunning() {
-        
+        this.iterThis = () => {
+            this.startFunction();
         }
+
+        this.iterThis();
+        // Iterate
+        setInterval(this.iterThis, 1000);
     }
-    
-
-    reset() {
-        
-    } 
-
-    pause() {
-
-    }
-
-    snooze() {
-        if (this.alarmTime !=null) {
-            document.getElementById("alarmMessage").innerHTML = "Alarm time: " + this.alarmTime; 
-        }
-        console.log(this.alarmTime);
-    }
-    
 }
 
+function pauseFunction() {
+    return;
+}
+
+function restartFunction() {
+    return;
+}
 
 // Object calls
 const newClock = new digitalClock();
