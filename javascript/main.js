@@ -106,7 +106,6 @@ class baseClock {
             this.drawSecondsHand();
             this.drawMinutesHand();
             this.drawHoursHand();
-            this.drawMinutesHand2();
         }
 
         this.iterThis();
@@ -239,30 +238,13 @@ class baseClock {
         let minutes = currtime.getMinutes();
 
         // Define vector
-        let segmentX = this.centerX + this.clockRadius * Math.cos((minutes) * 2 * Math.PI / 360);
-        let segmentY = this.centerY + this.clockRadius * Math.sin((minutes) * 2 * Math.PI / 360);
+        let segmentX = this.centerX + this.clockRadius * Math.cos((6*minutes - 90) * Math.PI / 180);
+        let segmentY = this.centerY + this.clockRadius * Math.sin((6*minutes - 90) * Math.PI / 180);
 
         // Draw minutes hand
         this.ctx.beginPath();
         this.ctx.moveTo(this.centerX, this.centerY);
         this.ctx.lineTo(segmentX, segmentY);
-        this.ctx.stroke();
-    }
-
-    drawMinutesHand2() {
-        // New date object and get current minutes
-        let currtime = new Date();
-        let minutes = currtime.getMinutes();
-
-        // Define vector
-        let segmentX = this.centerX + this.clockRadius * Math.cos((minutes) * 2 * Math.PI / 360);
-        let segmentY = this.centerY + this.clockRadius * Math.sin((minutes) * 2 * Math.PI / 360);
-
-        // Draw minutes hand
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.centerX, this.centerY);
-        this.ctx.lineTo(segmentX, segmentY);
-        this.ctx.strokeStyle() = "red";
         this.ctx.stroke();
     }
 }
