@@ -268,7 +268,7 @@ class stopwatch {
             this.display_seconds =  (this.iterateTime.getTime() - this.startTime.getTime()) / 1000;
             this.display_duration = this.display_duration + this.display_seconds + parseFloat(this.duration);
             this.display_duration = this.display_duration.toFixed(2);
-            document.getElementById("stopwatch").innerHTML="Stopwatch:<br>" + this.display_duration;
+            document.getElementById("stopwatch").innerHTML="Stopwatch:<br>" + this.formatTime(this.display_duration);
             this.display_duration = 0;
             //for some reason you need to use recurison in order for the browser tab to not crash, no idea why but it works man
             setTimeout(() => {
@@ -303,7 +303,7 @@ class stopwatch {
         this.seconds =  (this.endTime.getTime() - this.startTime.getTime()) / 1000;
         this.duration = parseFloat(this.duration) + parseFloat(this.seconds);
         this.duration = this.duration.toFixed(2);
-        document.getElementById("stopwatch").innerHTML="Stopwatch:<br>" + this.duration.toString();
+        document.getElementById("stopwatch").innerHTML="Stopwatch:<br>" + this.formatTime(this.duration.toString());
 
         
     }
@@ -324,9 +324,40 @@ class stopwatch {
       }
 
       formatTime(input) {
-          return -1;
-          //TODO!!!
-      }
+        let str = input.toString().replace(".", ":");
+        let ret = "";
+        let arr = str.split(":");
+        var i;
+        var mins = 0;
+        if(arr.length>=2 && arr.length < 5) {
+            let temp = arr[0];
+            if(parseInt(arr[0])>=60) {
+                mins = Math.floor(parseInt(arr[0]) / 60);
+                arr[0]=(parseInt(arr[0])-(mins*60)).toString();
+            }
+        }
+
+        for(i=0; i<arr.length; i++) {
+            arr[i]=this.pad(arr[i]);
+            ret+=arr[i]+":"
+        }
+        if(mins>0) {
+            ret = this.pad(mins.toString()) + ":" + ret;
+        }
+
+        //console.log(ret);
+        return ret.substr(0, ret.length-1);       
+    }
+
+    pad(input) {
+        let value = input.toString();
+
+        if(value.length < 2 && value.length !=0) {
+            return "0" + value;
+        }
+        return value;
+    }
+
 }
 
 class Timer {
