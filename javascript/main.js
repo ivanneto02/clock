@@ -95,7 +95,6 @@ class baseClock {
         this.iterate();
     }
 
-
     //every second, clears the clock then redraws
     iterate() {
         this.iterThis = () => {
@@ -105,6 +104,7 @@ class baseClock {
             this.drawSecondLines();
             this.drawNumbers();
             this.drawSecondsHand();
+            this.drawMinutesHand();
             this.drawHoursHand();
         }
 
@@ -132,23 +132,23 @@ class baseClock {
         // loops through clock every 30 degrees
         for (var i = 0; i < 12*30; i += 30) {
             // Segments to be printed
-            this.segmentX = this.centerX + (this.clockRadius)*(Math.cos(i*(Math.PI/180)));
-            this.segmentY = this.centerY + (this.clockRadius)*(Math.sin(i*(Math.PI/180)));
+            let segmentX = this.centerX + (this.clockRadius)*(Math.cos(i*(Math.PI/180)));
+            let segmentY = this.centerY + (this.clockRadius)*(Math.sin(i*(Math.PI/180)));
 
             // Increate to moveTo() function
-            this.moveToIncreaseX = (this.clockRadius - 20)*(Math.cos(i*(Math.PI/180)));
-            this.moveToIncreaseY = (this.clockRadius - 20)*(Math.sin(i*(Math.PI/180)));
+            let moveToIncreaseX = (this.clockRadius - 20)*(Math.cos(i*(Math.PI/180)));
+            let moveToIncreaseY = (this.clockRadius - 20)*(Math.sin(i*(Math.PI/180)));
 
             // Draw the lines
             this.ctx.beginPath();
-            this.ctx.moveTo(this.centerX + this.moveToIncreaseX, this.centerY + this.moveToIncreaseY);
-            this.ctx.lineTo(this.segmentX, this.segmentY);
+            this.ctx.moveTo(this.centerX + moveToIncreaseX, this.centerY + moveToIncreaseY);
+            this.ctx.lineTo(segmentX, segmentY);
             this.ctx.stroke();
         }
     }
 
     drawSecondLines() {
-        
+
         // loops through clock every 30 degrees
         for (var i = 0; i < 12*30; i += 6) {
 
@@ -158,17 +158,17 @@ class baseClock {
             }
             
             // Segments to be printed
-            this.segmentX = this.centerX + this.clockRadius*(Math.cos(i*(Math.PI/180)));
-            this.segmentY = this.centerY + this.clockRadius*(Math.sin(i*(Math.PI/180)));
+            let segmentX = this.centerX + this.clockRadius*(Math.cos(i*(Math.PI/180)));
+            let segmentY = this.centerY + this.clockRadius*(Math.sin(i*(Math.PI/180)));
 
             // Increate to moveTo() function
-            this.moveToIncreaseX = (this.clockRadius - 10)*(Math.cos(i*(Math.PI/180)));
-            this.moveToIncreaseY = (this.clockRadius - 10)*(Math.sin(i*(Math.PI/180)));
+            let moveToIncreaseX = (this.clockRadius - 10)*(Math.cos(i*(Math.PI/180)));
+            let moveToIncreaseY = (this.clockRadius - 10)*(Math.sin(i*(Math.PI/180)));
 
             // Draw the lines
             this.ctx.beginPath();
-            this.ctx.moveTo(this.centerX + this.moveToIncreaseX, this.centerY + this.moveToIncreaseY);
-            this.ctx.lineTo(this.segmentX, this.segmentY);
+            this.ctx.moveTo(this.centerX + moveToIncreaseX, this.centerY + moveToIncreaseY);
+            this.ctx.lineTo(segmentX, segmentY);
             this.ctx.stroke();
         }
     }
@@ -176,57 +176,75 @@ class baseClock {
     drawNumbers() {
         for (var i = 30; i <= 12*30; i += 30) {
             // Set coordinates
-            this.xCoord = 242 + (this.clockRadius - 35)*(Math.cos((i)*(Math.PI/180)));
-            this.yCoord = 257 + (this.clockRadius - 35)*(Math.sin((i)*(Math.PI/180)));
+            let xCoord = 242 + (this.clockRadius - 35)*(Math.cos((i)*(Math.PI/180)));
+            let yCoord = 257 + (this.clockRadius - 35)*(Math.sin((i)*(Math.PI/180)));
 
             // Replace 13, 14, 15 with 1, 2, 3
             switch(i/30 + 3) {
                 case 13:
-                    this.ctx.strokeText(1, this.xCoord, this.yCoord);
+                    this.ctx.strokeText(1, xCoord, yCoord);
                     continue;
                 case 14:
-                    this.ctx.strokeText(2, this.xCoord, this.yCoord);
+                    this.ctx.strokeText(2, xCoord, yCoord);
                     continue;
                 case 15:
-                    this.ctx.strokeText(3, this.xCoord, this.yCoord);
+                    this.ctx.strokeText(3, xCoord, yCoord);
                     continue;
             }
 
-            this.ctx.strokeText(i/30 + 3, this.xCoord, this.yCoord);
+            this.ctx.strokeText(i/30 + 3, xCoord, yCoord);
         }
     }
 
     //returns what second of the day it is
     getTimeInSeconds(){
         //get date-time
-        this.currtime = new Date();
+        let currtime = new Date();
+
         //return time in seconds
-        return this.currtime.getHours() * 3600 + this.currtime.getMinutes() * 60 + this.currtime.getSeconds();
+        return currtime.getHours() * 3600 + currtime.getMinutes() * 60 + currtime.getSeconds();
     }
 
     drawHoursHand(){
         //find x and y offset of the hours hand in relation to its starting position with respect to the 24 hour time in seconds
-        this.u = this.getTimeInSeconds() % 43200;
-        this.xOffsetHours = this.clockRadius / 2 * Math.cos((this.u - 43200 / 4) * 2 * Math.PI / 43200);
-        this.yOffsetHours = this.clockRadius / 2 * Math.sin((this.u - 43200 / 4) * 2 * Math.PI / 43200); 
+        let u = this.getTimeInSeconds() % 43200;
+        let xOffsetHours = this.clockRadius / 2 * Math.cos((u - 43200 / 4) * 2 * Math.PI / 43200);
+        let yOffsetHours = this.clockRadius / 2 * Math.sin((u - 43200 / 4) * 2 * Math.PI / 43200); 
+
         //draw hours hand
         this.ctx.beginPath();
         this.ctx.moveTo(this.centerX, this.centerY);
-        this.ctx.lineTo(this.centerX + this.xOffsetHours, this.centerY + this.yOffsetHours);
+        this.ctx.lineTo(this.centerX + xOffsetHours, this.centerY + yOffsetHours);
         this.ctx.stroke();
     }
 
-
     drawSecondsHand(){
         //find the x and y offset of the seconds hand in relation to its starting position with respect to the amount of seconds
-        this.currtime = new Date();
-        this.s = this.currtime.getSeconds();
-        this.xOffsetSeconds = this.clockRadius * Math.cos((this.s - 15) * 2 * Math.PI / 60);
-        this.yOffsetSeconds = this.clockRadius * Math.sin((this.s - 15) * 2 * Math.PI / 60);
+        let currtime = new Date();
+        let s = currtime.getSeconds();
+        let xOffsetSeconds = this.clockRadius * Math.cos((s - 15) * 2 * Math.PI / 60);
+        let yOffsetSeconds = this.clockRadius * Math.sin((s - 15) * 2 * Math.PI / 60);
+
         //draw seconds hand
         this.ctx.beginPath();
         this.ctx.moveTo(this.centerX, this.centerY);
-        this.ctx.lineTo(this.centerX + this.xOffsetSeconds, this.centerY + this.yOffsetSeconds);
+        this.ctx.lineTo(this.centerX + xOffsetSeconds, this.centerY + yOffsetSeconds);
+        this.ctx.stroke();
+    }
+
+    drawMinutesHand() {
+        // New date object and get current minutes
+        let currtime = new Date();
+        let minutes = currtime.getMinutes();
+
+        // Define vector
+        let segmentX = this.centerX + this.clockRadius * Math.cos((minutes - 15) * Math.PI / 180);
+        let segmentY = this.centerY + this.clockRadius * Math.sin((minutes - 15) * Math.PI / 180);
+
+        // Draw minutes hand
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.centerX, this.centerY);
+        this.ctx.lineTo(segmentX, segmentY);
         this.ctx.stroke();
     }
 }
