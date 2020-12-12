@@ -256,7 +256,7 @@ class stopwatch {
         this.startTime;
         this.endTime;
         this.duration = 0;
-        this.display_duration = 0;
+        this.display_duration = 0.0;
     }
 
     iterate() {
@@ -265,10 +265,9 @@ class stopwatch {
             
             this.iterateTime = new Date();
             this.display_seconds =  (this.iterateTime.getTime() - this.startTime.getTime()) / 1000;
-            this.display_duration = this.display_duration + this.display_seconds;
-            console.log(this.startTime.getTime());
+            this.display_duration = this.display_duration + this.display_seconds + parseFloat(this.duration);
             this.display_duration = this.display_duration.toFixed(2);
-            document.getElementById("stopwatch").innerHTML="Stopwatch:\n" + this.display_duration;
+            document.getElementById("stopwatch").innerHTML="Stopwatch:<br>" + this.display_duration;
             this.display_duration = 0;
             //for some reason you need to use recurison in order for the browser tab to not crash, no idea why but it works man
             setTimeout(() => {
@@ -301,9 +300,9 @@ class stopwatch {
         this.isRunning = false;
         this.endTime = new Date();
         this.seconds =  (this.endTime.getTime() - this.startTime.getTime()) / 1000;
-        this.duration = this.duration + this.seconds;
+        this.duration = parseFloat(this.duration) + parseFloat(this.seconds);
         this.duration = this.duration.toFixed(2);
-        document.getElementById("stopwatch").innerHTML="Stopwatch:\n" + this.duration.toString();
+        document.getElementById("stopwatch").innerHTML="Stopwatch:<br>" + this.duration.toString();
 
         
     }
@@ -312,6 +311,7 @@ class stopwatch {
         this.duration = 0;
         this.startTime, this.endTime = null, null;
         this.isRunning = false;
+        document.getElementById("stopwatch").innerHTML="Stopwatch:<br>" + "00:00";
     }
 
     sleep(milliseconds) {
