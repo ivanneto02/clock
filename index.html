@@ -2,30 +2,37 @@
 <html>
     
     <head>
-        <title> Clock Practice</title>
-        <link rel="stylesheet" href="styles/main.css"/>
+        <title> Clock Application</title>
+        <link rel="stylesheet" href="./styles/main.css"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com"/>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&family=Roboto+Mono&display=swap" rel="stylesheet"/>
     </head>
 
     <body>
         <div id="navbar">
-            <a class="navbar-text">
-                Clock
+            <a class="navbar-text box">
+                Clock Application
             </a>
         </div>
+        <div id="transitionFromNavbar"></div>
         <main> 
-            <div class="container"> 
-                <div class="title">
-                    Clock
+            <div class="container box"> 
+                <div class="title box">
+                    Digital Clock
                 </div>
 
-                <div class="display-clock">
+                <div class="display-clock box">
                     <div id="time">
                         Current date:<br>
                         Current time:
                     </div>
                 </div>
 
-                <div class="display-clock">
+                <div class="title box">
+                    Digital Clock
+                </div>
+                
+                <div class="display-clock box">
                     <div id="stopwatch">
                         Stopwatch:<br>
                         00:00
@@ -36,29 +43,32 @@
                 </div>
                 <!---->
 
-                <div>
-                    <canvas id="myCanvas" width="500" height="500" style="background-color: white">
+                <div class="display-clock box center">
+                    <canvas id="myCanvas" width="500px" height="500px">
                     <canvas id="innerCanvas" width="500" height="500" style="background-color: red">
 
                 </div>
             </div>
- 
-            <div class="display-clock">        
-                <input type="number" id="hour" value="0">
-                <input type="number" id="minute" value="0">
-                <input type="number" id="second" value="0">
-
-                <button onclick="const myTimer = new Timer();">Start</button>
-                <button onclick="pauseFunction()">Pause</button>
-                <button onclick="restartFunction()">Restart</button>
-
-                <div id="timer">
-                    Timer:<br>
-                    00:00:00
-                </div>  
+            <div class="container box">
+                <div class="title box">
+                    Timer
+                </div>
+                <div class="display-clock box">        
+                    <input type="number" id="hour" value="0">
+                    <input type="number" id="minute" value="0">
+                    <input type="number" id="second" value="0">
     
+                    <button onclick="const myTimer = new Timer();">Start</button>
+                    <button onclick="pauseFunction()">Pause</button>
+                    <button onclick="restartFunction()">Restart</button>
+    
+                    <div id="timer">
+                        Timer:<br>
+                        00:00:00
+                    </div>  
+        
+                </div>
             </div>
-            
             
         </main>
 

@@ -1,23 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&family=Roboto+Mono&display=swap');
 
 #navbar {
     background-color: black;
-    height: 3rem; 
+    height: 5rem; 
     width: 100%;
     display: block; 
 }
 
-.title {
-    text-align: center; 
-    font-size: 2rem;
+#transitionFromNavbar {
+    background-image: linear-gradient(to top, gray, black);
+    width: 100%;
+    height: 3rem;
 }
 
+.title {
+    text-align: center; 
+    font-size: 3rem;
+}
 
 body {
-    background-color: gray;
+    font-family: 'Roboto Mono', monospace;
+    background-color: rgb(20, 20, 20);
     font-size: 2rem;
-    color: white;
+    color: rgb(255, 255, 255);
     margin: 0;
-    padding: 0; 
+    padding: 0;
 }
 
 main {
@@ -26,9 +33,13 @@ main {
     justify-content: center;
 }
 
+.box {
+    border: solid white;
+}
+
 .container {
-    width: 500px; 
-    padding: 10px; 
+    width: 50%;  
+    padding: 50px;
 }
 
 .content {
@@ -36,35 +47,26 @@ main {
     color: white;
 }
 
-.display-clock {
-    margin-top: 2rem; 
-    padding: 1rem; 
-    border: solid;
-    border-color: white;
-    background-color: rgb(65, 64, 64); 
-    color: rgb(167, 209, 170); 
+.center {
+    text-align: center;
 }
 
-.display-stopwatch {
-    margin-top: 2rem; 
-    padding: 1rem; 
-    border: solid;
-    border-color: white;
+.display-clock {
+    margin-top: 2rem;
+    padding: 1rem;
     background-color: rgb(65, 64, 64); 
-    color: rgb(167, 209, 170); 
+    color: rgb(104, 219, 111);
 }
 
 .navbar-text{
     font-size: 2rem;
 }
 
-
 #myCanvas {
-    border: 2px solid green; 
-    border-radius: 20%;
+    border: 5px solid rgb(22, 22, 22);
+    border-radius: 50%;
+    background-color: black;
 }
-
-
 
 @media only screen and (max-width: 1000px) {
  

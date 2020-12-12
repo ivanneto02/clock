@@ -1,3 +1,4 @@
+
 class digitalClock {
 
     constructor() {
@@ -22,7 +23,19 @@ class digitalClock {
         this.locTime = this.currtime.toLocaleTimeString();
 
         return `${this.locTime}`;
-        
+    }
+
+    iterate() {
+        // Function to iterate
+        this.iterThis = () => {
+            document.getElementById("time").innerHTML = "Current date: " + this.formatDate() + "<br>" + "Current time: " + this.formatTime();
+        }
+
+        this.iterThis();
+        // Call iterThis every second
+        setInterval(this.iterThis, 1000);
+    }
+
         /*
         this.hours = this.currtime.getHours();
         this.minutes = this.currtime.getMinutes();
@@ -34,7 +47,6 @@ class digitalClock {
         
         return `${this.pad(this.formatHourM(this.hours))}:${this.pad(this.minutes)}:${this.pad(this.seconds)} ${this.determineMeridiem(this.hours)}`;
         */
-    }
 
     /*
     This function adds padding to a string, so that the length will always be 2.
@@ -65,16 +77,6 @@ class digitalClock {
     }
     */
 
-    iterate() {
-        // Function to iterate
-        this.iterThis = () => {
-            document.getElementById("time").innerHTML = "Current date: " + this.formatDate() + "<br>" + "Current time: " + this.formatTime();
-        }
-
-        this.iterThis();
-        // Call iterThis every second
-        setInterval(this.iterThis, 1000);
-    }
 }
 
 class baseClock {
@@ -101,9 +103,9 @@ class baseClock {
             this.drawMainLines();
             this.drawSecondLines();
             this.drawNumbers();
-            this.drawSecondsHand();
             this.drawMinutesHand();
             this.drawHoursHand();
+            this.drawSecondsHand();
         }
 
         this.iterThis();
@@ -121,8 +123,12 @@ class baseClock {
     drawCircle() {
         // Draw the circle
         this.ctx.beginPath();
+        this.ctx.lineWidth = 7;
+        this.ctx.strokeStyle = "gray";
         this.ctx.arc(this.centerX, this.centerY, this.clockRadius, 0, 2*Math.PI);
         this.ctx.stroke();
+        this.ctx.strokeStyle = "black";
+        this.ctx.lineWidth = 3;
     }
 
     drawMainLines() {
@@ -141,7 +147,10 @@ class baseClock {
             this.ctx.beginPath();
             this.ctx.moveTo(this.centerX + moveToIncreaseX, this.centerY + moveToIncreaseY);
             this.ctx.lineTo(segmentX, segmentY);
+
+            this.ctx.lineWidth = 10;
             this.ctx.stroke();
+            this.ctx.lineWidth = 3;
         }
     }
 
@@ -160,12 +169,13 @@ class baseClock {
             let segmentY = this.centerY + this.clockRadius*(Math.sin(i*(Math.PI/180)));
 
             // Increate to moveTo() function
-            let moveToIncreaseX = (this.clockRadius - 10)*(Math.cos(i*(Math.PI/180)));
-            let moveToIncreaseY = (this.clockRadius - 10)*(Math.sin(i*(Math.PI/180)));
+            let moveToIncreaseX = (this.clockRadius - 12)*(Math.cos(i*(Math.PI/180)));
+            let moveToIncreaseY = (this.clockRadius - 12)*(Math.sin(i*(Math.PI/180)));
 
             // Draw the lines
             this.ctx.beginPath();
             this.ctx.moveTo(this.centerX + moveToIncreaseX, this.centerY + moveToIncreaseY);
+
             this.ctx.lineTo(segmentX, segmentY);
             this.ctx.stroke();
         }
@@ -176,6 +186,8 @@ class baseClock {
             // Set coordinates
             let xCoord = 242 + (this.clockRadius - 35)*(Math.cos((i)*(Math.PI/180)));
             let yCoord = 257 + (this.clockRadius - 35)*(Math.sin((i)*(Math.PI/180)));
+
+            this.ctx.lineWidth = 2;
 
             // Replace 13, 14, 15 with 1, 2, 3
             switch(i/30 + 3) {
@@ -206,13 +218,27 @@ class baseClock {
     drawHoursHand(){
         //find x and y offset of the hours hand in relation to its starting position with respect to the 24 hour time in seconds
         let hours = this.getTimeInSeconds() % 43200;
+
+        // Define vectors
         let xOffsetHours = this.clockRadius / 2 * Math.cos((hours - 43200 / 4) * 2 * Math.PI / 43200);
         let yOffsetHours = this.clockRadius / 2 * Math.sin((hours - 43200 / 4) * 2 * Math.PI / 43200); 
 
-        //draw hours hand
+        // Define backward vectors
+        let xBackward = (-1) * (this.clockRadius - 200) * Math.cos((hours - 43200 / 4) * 2 * Math.PI / 43200);
+        let yBackward = (-1) * (this.clockRadius - 200) * Math.sin((hours - 43200 / 4) * 2 * Math.PI / 43200);
+
+        // Draw hours hand
         this.ctx.beginPath();
+        this.ctx.lineWidth = 10;
+        
+        // Draw forward vector
         this.ctx.moveTo(this.centerX, this.centerY);
         this.ctx.lineTo(this.centerX + xOffsetHours, this.centerY + yOffsetHours);
+
+        // Draw backward vector
+        this.ctx.moveTo(this.centerX, this.centerY);
+        this.ctx.lineTo(this.centerX + xBackward, this.centerY + yBackward);
+
         this.ctx.stroke();
     }
 
@@ -220,15 +246,30 @@ class baseClock {
         //find the x and y offset of the seconds hand in relation to its starting position with respect to the amount of seconds
         let currtime = new Date();
         let seconds = currtime.getSeconds();
+
+        // Define forward vector
         let xOffsetSeconds = this.clockRadius * (9/10) * Math.cos((seconds - 15) * 2 * Math.PI / 60);
         let yOffsetSeconds = this.clockRadius * (9/10) * Math.sin((seconds - 15) * 2 * Math.PI / 60);
 
-        //draw seconds hand
+        // Define backward vector
+        let xBackward = (-1)*(this.clockRadius - 190) * (9/10) * Math.cos((seconds - 15) * 2 * Math.PI / 60);
+        let yBackward = (-1)*(this.clockRadius - 190) * (9/10) * Math.sin((seconds - 15) * 2 * Math.PI / 60);
+
+        // Draw seconds hand
         this.ctx.beginPath();
+
+        // Draw foward part
         this.ctx.moveTo(this.centerX, this.centerY);
         this.ctx.lineTo(this.centerX + xOffsetSeconds, this.centerY + yOffsetSeconds);
+
+        // Draw backward part
+        this.ctx.moveTo(this.centerX, this.centerY);
+        this.ctx.lineTo(this.centerX + xBackward, this.centerY + yBackward);
+
+        this.ctx.lineWidth = 4;
         this.ctx.strokeStyle = "red";
         this.ctx.stroke();
+        this.ctx.lineWidth = 3;
     }
 
     drawMinutesHand() {
@@ -238,15 +279,23 @@ class baseClock {
         let seconds = this.getTimeInSeconds() % 3600;
 
         // Define vector
-        let segmentX = this.centerX + this.clockRadius * Math.cos((0.1*seconds - 90) * Math.PI / 180);
-        let segmentY = this.centerY + this.clockRadius * Math.sin((0.1*seconds - 90) * Math.PI / 180);
+        let segmentX = this.centerX + (this.clockRadius - 40) * Math.cos((0.1*seconds - 90) * Math.PI / 180);
+        let segmentY = this.centerY + (this.clockRadius - 40) * Math.sin((0.1*seconds - 90) * Math.PI / 180);
+
+        // Define backward vector
+        let xBackward = this.centerX - (this.clockRadius - 200) * Math.cos((0.1*seconds - 90) * Math.PI / 180);
+        let yBackward = this.centerY - (this.clockRadius - 200) * Math.sin((0.1*seconds - 90) * Math.PI / 180);
 
         // Draw minutes hand
         this.ctx.beginPath();
         this.ctx.moveTo(this.centerX, this.centerY);
         this.ctx.lineTo(segmentX, segmentY);
+        this.ctx.lineTo(xBackward, yBackward);
+
+        this.ctx.lineWidth = 7;
         this.ctx.strokeStyle = "black";
         this.ctx.stroke();
+        this.ctx.lineWidth = 3;
     }
 }
 
@@ -304,8 +353,7 @@ class stopwatch {
         this.duration = parseFloat(this.duration) + parseFloat(this.seconds);
         this.duration = this.duration.toFixed(2);
         document.getElementById("stopwatch").innerHTML="Stopwatch:<br>" + this.duration.toString();
-
-        
+ 
     }
 
     reset() {
@@ -411,5 +459,3 @@ const newBaseClock = new baseClock();
 const newStopwatch = new stopwatch();
 
 // const myAlarm = new alarm(); 
-
-
