@@ -1,4 +1,9 @@
+#myCanvas {
+    border: 2px solid green; 
+    border-radius: 20%;
+}
 
+/*-------------------START OF NAV BAR-----------------------------*/
 #navbar {
     background-color: black;
     height: 3rem; 
@@ -23,10 +28,8 @@
     float: right; 
     text-align: center; 
 }
-#myCanvas {
-    border: 2px solid green; 
-    border-radius: 20%;
-}
+
+/*----------------------------------------------------*/
 
 body {
     background-color: gray;
@@ -42,6 +45,14 @@ main {
     justify-content: center;
 }
 
+/*--------------------CLASSES--------------------------*/
+.hero {
+    margin: 0;
+    background-color: blue;
+    text-align: center;
+    width: 100%;
+    font-size: 2rem;
+}
 
 .container {
     width: 500px; 

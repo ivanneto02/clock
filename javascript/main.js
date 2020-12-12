@@ -78,7 +78,6 @@ class digitalClock {
 }
 
 class baseClock {
-    
     constructor() {
         // Clock variables 
         this.clockRadius = 220; 
@@ -90,7 +89,6 @@ class baseClock {
         this.ctx = this.c.getContext("2d");
         this.ctx.font = "20px Arial";
 
-        
         // Function calls
         this.iterate();
     }
