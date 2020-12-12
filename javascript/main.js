@@ -307,6 +307,8 @@ class stopwatch {
         this.endTime;
         this.duration = 0;
         this.display_duration = 0.0;
+        this.times = {};
+        this.count = 0;
     }
 
     iterate() {
@@ -361,7 +363,9 @@ class stopwatch {
         this.duration = 0;
         this.startTime, this.endTime = null, null;
         this.isRunning = false;
+        this.times = {};
         document.getElementById("stopwatch").innerHTML="Stopwatch:<br>" + "00:00";
+        document.getElementById("alerttext").innerHTML = "";
     }
 
     sleep(milliseconds) {
@@ -405,6 +409,35 @@ class stopwatch {
             return "0" + value;
         }
         return value;
+    }
+
+    recordTime() {
+        document.getElementById("Stopwatch")
+        let temp = this.count;
+        Object.assign(this.times, {[temp]:document.getElementById("stopwatch").innerHTML.split("<br>")[1]});
+        //console.log(this.times);
+        document.getElementById("alerttext").innerHTML = "Recorded Time " + document.getElementById("stopwatch").innerHTML.split("<br>")[1];
+        this.count +=1;
+    }
+
+    exportTimes() {
+        var json = JSON.stringify(this.times);
+        console.log(json);
+        json = [json];
+        var blob1 = new Blob(json, { type: "text/plain;charset=utf-8" });
+        var isIE = false || !!document.documentMode;
+        if (isIE) {
+            window.navigator.msSaveBlob(blob1, "times.json");
+        } else {
+            var url = window.URL || window.webkitURL;
+            var link = url.createObjectURL(blob1);
+            var a = document.createElement("a");
+            a.download = "times.json";
+            a.href = link;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
     }
 
 }
