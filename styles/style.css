@@ -1,0 +1,83 @@
+
+#navbar {
+    background-color: black;
+    height: 3rem; 
+    width: 100%;
+}
+#navbar a {
+    color: pink;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none; /* gets rid of the underline in the links*/
+}
+#navbar a:hover {
+    color: purple; 
+}
+
+.nav-left {
+    float: left; 
+    text-align: center; 
+}
+
+.nav-right {
+    float: right; 
+    text-align: center; 
+}
+#myCanvas {
+    border: 2px solid green; 
+    border-radius: 20%;
+}
+
+body {
+    background-color: gray;
+    font-size: 2rem;
+    color: white;
+    margin: 0;
+    padding: 0; 
+}
+
+main {
+    padding-top: 5rem;  
+    display: flex; 
+    justify-content: center;
+}
+
+
+.container {
+    width: 500px; 
+    padding: 10px; 
+}
+
+.content {
+    font-size: 2rem;
+    color: white;
+}
+
+.display-clock {
+    margin-top: 2rem; 
+    padding: 1rem; 
+    border: solid;
+    border-color: white;
+    background-color: rgb(65, 64, 64); 
+    color: rgb(167, 209, 170); 
+}
+
+.display-stopwatch {
+    margin-top: 2rem; 
+    padding: 1rem; 
+    border: solid;
+    border-color: white;
+    background-color: rgb(65, 64, 64); 
+    color: rgb(167, 209, 170); 
+}
+
+/*-----------------------text styles----------------------------------------------*/
+.center {
+    text-align: center; 
+}
+
+
+@media only screen and (max-width: 1000px) {
+ 
+    
+}
