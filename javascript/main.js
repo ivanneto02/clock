@@ -220,29 +220,32 @@ class baseClock {
         //find the x and y offset of the seconds hand in relation to its starting position with respect to the amount of seconds
         let currtime = new Date();
         let seconds = currtime.getSeconds();
-        let xOffsetSeconds = this.clockRadius * Math.cos((seconds - 15) * 2 * Math.PI / 60);
-        let yOffsetSeconds = this.clockRadius * Math.sin((seconds - 15) * 2 * Math.PI / 60);
+        let xOffsetSeconds = this.clockRadius * (9/10) * Math.cos((seconds - 15) * 2 * Math.PI / 60);
+        let yOffsetSeconds = this.clockRadius * (9/10) * Math.sin((seconds - 15) * 2 * Math.PI / 60);
 
         //draw seconds hand
         this.ctx.beginPath();
         this.ctx.moveTo(this.centerX, this.centerY);
         this.ctx.lineTo(this.centerX + xOffsetSeconds, this.centerY + yOffsetSeconds);
+        this.ctx.strokeStyle = "red";
         this.ctx.stroke();
     }
 
     drawMinutesHand() {
         // New date object and get current minutes
-        let currtime = new Date();
-        let minutes = currtime.getMinutes();
+        // let currtime = new Date();
+        // let minutes = currtime.getMinutes();
+        let seconds = this.getTimeInSeconds() % 3600;
 
         // Define vector
-        let segmentX = this.centerX + this.clockRadius * Math.cos((6*minutes - 90) * Math.PI / 180);
-        let segmentY = this.centerY + this.clockRadius * Math.sin((6*minutes - 90) * Math.PI / 180);
+        let segmentX = this.centerX + this.clockRadius * Math.cos((0.1*seconds - 90) * Math.PI / 180);
+        let segmentY = this.centerY + this.clockRadius * Math.sin((0.1*seconds - 90) * Math.PI / 180);
 
         // Draw minutes hand
         this.ctx.beginPath();
         this.ctx.moveTo(this.centerX, this.centerY);
         this.ctx.lineTo(segmentX, segmentY);
+        this.ctx.strokeStyle = "black";
         this.ctx.stroke();
     }
 }
