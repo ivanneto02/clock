@@ -1,8 +1,3 @@
-#myCanvas {
-    border: 2px solid green; 
-    border-radius: 20%;
-}
-
 /*-------------------START OF NAV BAR-----------------------------*/
 #navbar {
     background-color: black;
@@ -19,49 +14,47 @@
     color: purple; 
 }
 
-.nav-left {
-    float: left; 
-    text-align: center; 
-}
 
-.nav-right {
-    float: right; 
-    text-align: center; 
-}
-
-/*----------------------------------------------------*/
-
+ /*------------------------------------------------------*/ 
 body {
+    transition: background-color .5s;
     background-color: gray;
     font-size: 2rem;
     color: white;
     margin: 0;
     padding: 0; 
+    overflow-x: hidden; 
+
 }
 
 main {
+    transition: margin-left .5s;
     padding-top: 5rem;  
     display: flex; 
     justify-content: center;
 }
 
+#main {
+    transition: margin-left .5s;
+  }
+  
 /*--------------------CLASSES--------------------------*/
 .hero {
     margin: 0;
+    padding: 2rem; 
     background-color: blue;
     text-align: center;
     width: 100%;
+    height: auto; 
     font-size: 2rem;
 }
 
-.container {
-    width: 500px; 
-    padding: 10px; 
-}
 
 .content {
     font-size: 2rem;
     color: white;
+    margin: 100px; 
+    padding: 100px; 
 }
 
 .display-clock {
@@ -73,14 +66,6 @@ main {
     color: rgb(167, 209, 170); 
 }
 
-.display-stopwatch {
-    margin-top: 2rem; 
-    padding: 1rem; 
-    border: solid;
-    border-color: white;
-    background-color: rgb(65, 64, 64); 
-    color: rgb(167, 209, 170); 
-}
 
 /*-----------------------text styles----------------------------------------------*/
 .center {
@@ -90,5 +75,4 @@ main {
 
 @media only screen and (max-width: 1000px) {
  
-    
 }
