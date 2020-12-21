@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Alarm</title>
+        <link rel="stylesheet" href="../../styles/style.css"/>   
+        <link rel="stylesheet" href="../../styles/optionsBar.css"/>  
+        <link rel="stylesheet" href="../../styles/topbar.css"/>   
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    </head>
+
+
+    <body>
+        <div class="topbar">
+            <a href="#">Modify</a>
+            <a href="#">Alarm</a> 
+            <a href="alarmAdd.html">+</a> 
+        </div>  
+
+        <main>
+
+            <div class="content">
+                <h2>Sidenav Push Example</h2>
+                <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
+                <p>
+                    More text to make the site longer <br>
+                    :<br>
+                    :<br>
+                    :<br>
+                    :<br>
+                    :<br>
+                    :<br>
+                    :<br>
+                    :<br>
+                </p>
+            </div>  
+
+            <div class="display-clock center">
+                <canvas id="myCanvas" width="500px" height="500px">
+                <canvas id="innerCanvas" width="500" height="500" style="background-color: red">
+
+            </div>
+
+            <div class="button-options">
+                <a href="../homePage/home.html" id="homeOption" class="home"><i class="fa fa-home"></i>  
+                <a href="../alarmPage/alarm.html" id="alarmOption" class="alarm"><i class="fa fa-bell-o"></i>
+                <a href="../timer.html" id="timerOption" class="timer"><i class="fa fa-hourglass-2"></i>
+                <a href="../stopwatch.html" id="stopwatchOption" class="stopwatch"><i class="fa fa-clock-o"></i>
+            </div>
+
+            
+        </main>
+
+        <!-- <script type="text/javascript" src="../javascript/main.js"></script> -->
+        <script type="text/javascript" src="../../javascript/optionsBar.js"></script>
+        <script type="text/javascript" src="../../javascript/alarm.js"></script>
+        
+    </body>
+
+</html>

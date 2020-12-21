@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Timer</title>
+        <link rel="stylesheet" href="../styles/style.css"/>   
+        <link rel="stylesheet" href="../styles/optionsBar.css"/>  
+        <link rel="stylesheet" href="../styles/topbar.css"/>   
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    </head>
+
+
+    <body>
+        <div class="topbar">
+            <a href="#"> Modify</a>
+            <a href="#">Timer</a>  
+        </div>  
+
+        <main>
+
+            <div class=" content container box">
+                <div class="display-clock box">        
+                    <input type="number" id="hour" value="0">
+                    <input type="number" id="minute" value="0">
+                    <input type="number" id="second" value="0">
+    
+                    <button onclick="const myTimer = new Timer();">Start</button>
+                    <button onclick="pauseFunction()">Pause</button>
+                    <button onclick="restartFunction()">Restart</button>
+    
+                    <div id="timer">
+                        Timer:<br>
+                        00:00:00
+                    </div>  
+        
+                </div>
+            </div>
+
+
+            <div class="button-options">
+                <a href="homePage/home.html" id="homeOption" class="home"><i class="fa fa-home"></i>  
+                <a href="alarmPage/alarm.html" id="alarmOption" class="alarm"><i class="fa fa-bell-o"></i>
+                <a href="timer.html" id="timerOption" class="timer"><i class="fa fa-hourglass-2"></i>
+                <a href="stopwatch.html" id="stopwatchOption" class="stopwatch"><i class="fa fa-clock-o"></i>
+            </div>
+
+            
+        </main>
+
+        <script type="text/javascript" src="../javascript/optionsBar.js"></script>
+        <script type="text/javascript" src="../javascript/timer.js"></script>
+        
+    </body>
+
+</html>

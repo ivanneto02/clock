@@ -453,7 +453,7 @@ class Timer {
         
         // Define total seconds for user input
         this.totalSeconds = (hr*60*60) + (min*60) + sec;
-    
+
         this.iterate();
     }
 
@@ -468,7 +468,6 @@ class Timer {
     }
 
     startFunction() {
-
         // Hours
         if (this.totalSeconds >= 3600) {
             this.hour = Math.floor(this.totalSeconds/60/60);
@@ -523,4 +522,4 @@ const newClock = new digitalClock();
 const newBaseClock = new baseClock();
 const newStopwatch = new stopwatch();
 
-// const myAlarm = new alarm(); 
+ //const myAlarm = new alarm(); 
