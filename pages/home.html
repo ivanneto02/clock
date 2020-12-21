@@ -5,45 +5,49 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title> Home</title>
         <link rel="stylesheet" href="../styles/style.css"/>   
-        <link rel="stylesheet" href="../styles/sideNav.css"/>     
+        <link rel="stylesheet" href="../styles/options.css"/>  
+        <link rel="stylesheet" href="../styles/topbar.css"/>   
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
     </head>
 
-    <div class="hero">
-        <h1>CLOCK APP!</h1>
-        <h6>the best thing since sliced bread</h6>
-    </div>
 
     <body>
+        <div class="topbar">
+            <a href="#"> Modify</a>
+            <a href="#">Home</a> 
+            <a href="homePlus.html">+</a> 
+        </div>  
 
-        <div id="main">
-
-            <div id="navbar">
-            <!-- The Hamburger Menu -->
-            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
-            </div>
-            
-            <div id="sideNav" class="sidenav">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <a href="#">About</a>
-                <a href="#">Services</a>
-                <a href="#">Clients</a>
-                <a href="#">Contact</a>
-            </div>
+        <main>
 
             <div class="content">
                 <h2>Sidenav Push Example</h2>
                 <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
-            </div> 
+                <p>
+                    More text to make the site longer <br>
+                    :<br>
+                    :<br>
+                    :<br>
+                    :<br>
+                    :<br>
+                    :<br>
+                    :<br>
+                    :<br>
+                </p>
+            </div>  
 
-            <div class="home-button">
-                <a href="home.html" class="home"><i class="fa fa-home"></i></a> 
+            <div class="button-options">
+                <a href="home.html" id="homeOption" class="home"><i class="fa fa-home"></i>  
+                <a href="alarm.html" id="alarmOption" class="alarm"><i class="fa fa-bell-o"></i>
+                <a href="timer.html" id="timerOption" class="timer"><i class="fa fa-hourglass-2"></i>
+                <a href="stopwatch.html" id="stopwatchOption" class="stopwatch"><i class="fa fa-clock-o"></i>
             </div>
             
-        </div>
+        </main>
 
         <script type="text/javascript" src="../javascript/main.js"></script>
-        <script type="text/javascript" src="../javascript/style.js"></script>
+        <script type="text/javascript" src="../javascript/buttonOptions.js"></script>
+        
     </body>
 
 </html>

@@ -1,0 +1,24 @@
+.topbar {
+    background-color: black;
+    height: 3rem;
+    padding-bottom: 15px; 
+    width: 100%;
+    position: fixed;
+    display: flex; 
+    justify-content: space-between;
+  }
+  
+.topbar a {
+    text-decoration: none; 
+    color: white; 
+    padding: 15px;
+    float: left; 
+    display: block; 
+}
+
+
+
+
+
+
+  
