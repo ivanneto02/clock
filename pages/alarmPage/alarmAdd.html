@@ -15,14 +15,22 @@
         <div class="topbar">
             <a href="#">Modify</a>
             <a href="#">Alarm</a> 
-            <a href="homeAdd.html">+</a> 
+            <a href="alarm.html">+</a> 
         </div>  
 
         <main>
 
             <div class="content">
-                TODO
-            </div>
+                <input type="number" id="hour" value="0">:<input type="number" id="minute" value="0">
+
+                <button onclick="newAlarm()">Add</button>
+                <button onclick="removeAlarms()">Remove all</button>
+                <button onclick="printAllAlarms()">Print all</button>
+
+                <div id="addAlarmTester"></div>
+
+            </div>  
+
 
             <div class="button-options">
                 <a href="../homePage/home.html" id="homeOption" class="home"><i class="fa fa-home"></i>  
@@ -36,7 +44,7 @@
 
         <!-- <script type="text/javascript" src="../javascript/main.js"></script> -->
         <script type="text/javascript" src="../../javascript/optionsBar.js"></script>
-        <script type="text/javascript" src="../../javascript/alarm.js"></script>
+        <script type="text/javascript" src="../../javascript/alarmAdd.js"></script>
         
     </body>
 

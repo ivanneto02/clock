@@ -1,3 +1,4 @@
+window.localStorage;
 
 class baseClock {
     constructor() {
@@ -226,6 +227,31 @@ class allAlarms{
             window.localStorage.setItem("numAlarms", 0);
         }
     }
+    formatTime(){
+        let hr = document.getElementById("hour").value;
+        let min = document.getElementById("minute").value;
+        if(hr > 12 || hr < 1 || min > 59 || min < 1){
+            return "Invalid input"
+        }
+        if (min > 9){
+            return  hr + ":" + min;
+        }
+        return hr + ":0" + min;
+    }
+    createNewAlarm(){
+        if (this.formatTime() === "Invalid input"){
+            document.getElementById("addAlarmTester").innerHTML = "Invalid Time";
+            return;
+        }
+        else{
+            var string = this.formatTime();
+        }
+        window.localStorage.setItem(window.localStorage.getItem("numAlarms"), string);
+
+        var numAlarms = parseInt(window.localStorage.getItem("numAlarms"));
+        window.localStorage.setItem("numAlarms", numAlarms + 1);
+        document.getElementById("addAlarmTester").innerHTML = "Added  alarm for " + string;    
+    }
 
     showAlarm(num){
         var time = window.localStorage.getItem(num);
@@ -238,21 +264,27 @@ class allAlarms{
         // add the text node to the newly created div
         newDiv.appendChild(newContent);
         // add the div to the alarmSection
-        document.getElementById("alarmSection").appendChild(newDiv);
+        document.getElementById("addAlarmTester").appendChild(newDiv);
     }
 }
 
-const clock = new baseClock();
-
 const alarms = new allAlarms();
+  
 
-if(parseInt(window.localStorage.getItem("numAlarms") === 0)){
-    document.getElementById("alarmSection").innerHTML = "No alarms";
+
+function newAlarm(){
+   //alarms.showAlarms();
+   alarms.createNewAlarm();
 }
-for(var i = 0; i < parseInt(window.localStorage.getItem("numAlarms")); i ++){
-    alarms.showAlarm(i);
+
+function removeAlarms(){
+    window.localStorage.clear();
+    window.localStorage.setItem("numAlarms", 0);
+    document.getElementById("addAlarmTester").innerHTML = "";
 }
 
-
-
-
+function printAllAlarms(){
+    for(var i = 0; i < parseInt(window.localStorage.getItem("numAlarms")); i ++){
+        alarms.showAlarm(i)
+    }
+}
