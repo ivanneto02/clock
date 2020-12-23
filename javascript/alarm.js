@@ -229,12 +229,10 @@ class allAlarms{
 
     showAlarm(num){
         var time = window.localStorage.getItem(num);
-
-
         // create a new div element
         const newDiv = document.createElement("div");
         // and give it the alarm's text 
-        const newContent = document.createTextNode("Alarm " + time);
+        const newContent = document.createTextNode(time);
         // add the text node to the newly created div
         newDiv.appendChild(newContent);
         // add the div to the alarmSection
@@ -246,9 +244,6 @@ const clock = new baseClock();
 
 const alarms = new allAlarms();
 
-if(parseInt(window.localStorage.getItem("numAlarms") === 0)){
-    document.getElementById("alarmSection").innerHTML = "No alarms";
-}
 for(var i = 0; i < parseInt(window.localStorage.getItem("numAlarms")); i ++){
     alarms.showAlarm(i);
 }

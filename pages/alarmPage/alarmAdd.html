@@ -21,13 +21,18 @@
         <main>
 
             <div class="content">
-                <input type="number" id="hour" value="0">:<input type="number" id="minute" value="0">
-
+                <input type="number" id="hour" min="1" max="12" value="12" >:
+                <input type="number" id="minute" min="0" max="60" value="30">
+                <input type="text" id="name" maxlength="50" value="Alarm Name">
+                <!-- limit imputs so user can not use | -->
+            
+                <button id = "AMPMButton" onclick="SwitchAMPM()" value="AM">AM</button>
                 <button onclick="newAlarm()">Add</button>
                 <button onclick="removeAlarms()">Remove all</button>
                 <button onclick="printAllAlarms()">Print all</button>
 
                 <div id="addAlarmTester"></div>
+                <div id="tester" onclick="tester()"> Tester </div>
 
             </div>  
 
@@ -45,7 +50,6 @@
         <!-- <script type="text/javascript" src="../javascript/main.js"></script> -->
         <script type="text/javascript" src="../../javascript/optionsBar.js"></script>
         <script type="text/javascript" src="../../javascript/alarmAdd.js"></script>
-        
     </body>
 
 </html>

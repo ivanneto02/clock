@@ -60,6 +60,15 @@ main {
     color: rgb(167, 209, 170); 
 }
 
+.AM-PM {
+    overflow: hidden;
+    border: solid grey 1px;
+}
+
+.column-flex{
+    display: flex;
+    flex-direction: column;
+}
 
 /*-----------------------text styles----------------------------------------------*/
 .center {
