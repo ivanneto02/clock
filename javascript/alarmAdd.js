@@ -1,226 +1,3 @@
-window.localStorage;
-
-class baseClock {
-    constructor() {
-        // Clock variables 
-        this.clockRadius = 220; 
-        this.centerX = 250;
-        this.centerY = 250;
-        
-        // C is the canvas
-        this.c = document.getElementById("myCanvas");
-        this.ctx = this.c.getContext("2d");
-        this.ctx.font = "20px Arial";
-
-        // Function calls
-        this.iterate();
-    }
-
-    //every second, clears the clock then redraws
-    iterate() {
-        this.iterThis = () => {
-            this.clearClock();
-            this.drawCircle();
-            this.drawMainLines();
-            this.drawSecondLines();
-            this.drawNumbers();
-            this.drawMinutesHand();
-            this.drawHoursHand();
-            this.drawSecondsHand();
-        }
-
-        this.iterThis();
-        //every second, call iterate
-        setInterval(this.iterThis, 1000);
-    }
-
-    clearClock() {
-        this.ctx.beginPath();
-        this.ctx.arc(this.centerX, this.centerY, this.clockRadius+1, 0, 2*Math.PI);
-        this.ctx.fillStyle = "white";
-        this.ctx.fill();
-    }
-
-    drawCircle() {
-        // Draw the circle
-        this.ctx.beginPath();
-        this.ctx.lineWidth = 7;
-        this.ctx.strokeStyle = "gray";
-        this.ctx.arc(this.centerX, this.centerY, this.clockRadius, 0, 2*Math.PI);
-        this.ctx.stroke();
-        this.ctx.strokeStyle = "black";
-        this.ctx.lineWidth = 3;
-    }
-
-    drawMainLines() {
-        
-        // loops through clock every 30 degrees
-        for (var i = 0; i < 12*30; i += 30) {
-            // Segments to be printed
-            let segmentX = this.centerX + (this.clockRadius)*(Math.cos(i*(Math.PI/180)));
-            let segmentY = this.centerY + (this.clockRadius)*(Math.sin(i*(Math.PI/180)));
-
-            // Increate to moveTo() function
-            let moveToIncreaseX = (this.clockRadius - 20)*(Math.cos(i*(Math.PI/180)));
-            let moveToIncreaseY = (this.clockRadius - 20)*(Math.sin(i*(Math.PI/180)));
-
-            // Draw the lines
-            this.ctx.beginPath();
-            this.ctx.moveTo(this.centerX + moveToIncreaseX, this.centerY + moveToIncreaseY);
-            this.ctx.lineTo(segmentX, segmentY);
-
-            this.ctx.lineWidth = 10;
-            this.ctx.stroke();
-            this.ctx.lineWidth = 3;
-        }
-    }
-
-    drawSecondLines() {
-
-        // loops through clock every 30 degrees
-        for (var i = 0; i < 12*30; i += 6) {
-
-            // Do not draw over main lines
-            if (i % 30 == 0) {
-                continue;
-            }
-            
-            // Segments to be printed
-            let segmentX = this.centerX + this.clockRadius*(Math.cos(i*(Math.PI/180)));
-            let segmentY = this.centerY + this.clockRadius*(Math.sin(i*(Math.PI/180)));
-
-            // Increate to moveTo() function
-            let moveToIncreaseX = (this.clockRadius - 12)*(Math.cos(i*(Math.PI/180)));
-            let moveToIncreaseY = (this.clockRadius - 12)*(Math.sin(i*(Math.PI/180)));
-
-            // Draw the lines
-            this.ctx.beginPath();
-            this.ctx.moveTo(this.centerX + moveToIncreaseX, this.centerY + moveToIncreaseY);
-
-            this.ctx.lineTo(segmentX, segmentY);
-            this.ctx.stroke();
-        }
-    }
-
-    drawNumbers() {
-        for (var i = 30; i <= 12*30; i += 30) {
-            // Set coordinates
-            let xCoord = 242 + (this.clockRadius - 35)*(Math.cos((i)*(Math.PI/180)));
-            let yCoord = 257 + (this.clockRadius - 35)*(Math.sin((i)*(Math.PI/180)));
-
-            this.ctx.lineWidth = 2;
-
-            // Replace 13, 14, 15 with 1, 2, 3
-            switch(i/30 + 3) {
-                case 13:
-                    this.ctx.strokeText(1, xCoord, yCoord);
-                    continue;
-                case 14:
-                    this.ctx.strokeText(2, xCoord, yCoord);
-                    continue;
-                case 15:
-                    this.ctx.strokeText(3, xCoord, yCoord);
-                    continue;
-            }
-
-            this.ctx.strokeText(i/30 + 3, xCoord, yCoord);
-        }
-    }
-
-    //returns what second of the day it is
-    getTimeInSeconds(){
-        //get date-time
-        let currtime = new Date();
-
-        //return time in seconds
-        return currtime.getHours() * 3600 + currtime.getMinutes() * 60 + currtime.getSeconds();
-    }
-
-    drawHoursHand(){
-        //find x and y offset of the hours hand in relation to its starting position with respect to the 24 hour time in seconds
-        let hours = this.getTimeInSeconds() % 43200;
-
-        // Define vectors
-        let xOffsetHours = this.clockRadius / 2 * Math.cos((hours - 43200 / 4) * 2 * Math.PI / 43200);
-        let yOffsetHours = this.clockRadius / 2 * Math.sin((hours - 43200 / 4) * 2 * Math.PI / 43200); 
-
-        // Define backward vectors
-        let xBackward = (-1) * (this.clockRadius - 200) * Math.cos((hours - 43200 / 4) * 2 * Math.PI / 43200);
-        let yBackward = (-1) * (this.clockRadius - 200) * Math.sin((hours - 43200 / 4) * 2 * Math.PI / 43200);
-
-        // Draw hours hand
-        this.ctx.beginPath();
-        this.ctx.lineWidth = 10;
-        
-        // Draw forward vector
-        this.ctx.moveTo(this.centerX, this.centerY);
-        this.ctx.lineTo(this.centerX + xOffsetHours, this.centerY + yOffsetHours);
-
-        // Draw backward vector
-        this.ctx.moveTo(this.centerX, this.centerY);
-        this.ctx.lineTo(this.centerX + xBackward, this.centerY + yBackward);
-
-        this.ctx.stroke();
-    }
-
-    drawSecondsHand(){
-        //find the x and y offset of the seconds hand in relation to its starting position with respect to the amount of seconds
-        let currtime = new Date();
-        let seconds = currtime.getSeconds();
-
-        // Define forward vector
-        let xOffsetSeconds = this.clockRadius * (9/10) * Math.cos((seconds - 15) * 2 * Math.PI / 60);
-        let yOffsetSeconds = this.clockRadius * (9/10) * Math.sin((seconds - 15) * 2 * Math.PI / 60);
-
-        // Define backward vector
-        let xBackward = (-1)*(this.clockRadius - 190) * (9/10) * Math.cos((seconds - 15) * 2 * Math.PI / 60);
-        let yBackward = (-1)*(this.clockRadius - 190) * (9/10) * Math.sin((seconds - 15) * 2 * Math.PI / 60);
-
-        // Draw seconds hand
-        this.ctx.beginPath();
-
-        // Draw foward part
-        this.ctx.moveTo(this.centerX, this.centerY);
-        this.ctx.lineTo(this.centerX + xOffsetSeconds, this.centerY + yOffsetSeconds);
-
-        // Draw backward part
-        this.ctx.moveTo(this.centerX, this.centerY);
-        this.ctx.lineTo(this.centerX + xBackward, this.centerY + yBackward);
-
-        this.ctx.lineWidth = 4;
-        this.ctx.strokeStyle = "red";
-        this.ctx.stroke();
-        this.ctx.lineWidth = 3;
-    }
-
-    drawMinutesHand() {
-        // New date object and get current minutes
-        // let currtime = new Date();
-        // let minutes = currtime.getMinutes();
-        let seconds = this.getTimeInSeconds() % 3600;
-
-        // Define vector
-        let segmentX = this.centerX + (this.clockRadius - 40) * Math.cos((0.1*seconds - 90) * Math.PI / 180);
-        let segmentY = this.centerY + (this.clockRadius - 40) * Math.sin((0.1*seconds - 90) * Math.PI / 180);
-
-        // Define backward vector
-        let xBackward = this.centerX - (this.clockRadius - 200) * Math.cos((0.1*seconds - 90) * Math.PI / 180);
-        let yBackward = this.centerY - (this.clockRadius - 200) * Math.sin((0.1*seconds - 90) * Math.PI / 180);
-
-        // Draw minutes hand
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.centerX, this.centerY);
-        this.ctx.lineTo(segmentX, segmentY);
-        this.ctx.lineTo(xBackward, yBackward);
-
-        this.ctx.lineWidth = 7;
-        this.ctx.strokeStyle = "black";
-        this.ctx.stroke();
-        this.ctx.lineWidth = 3;
-    }
-}
-
-
 /* 
 const now = new Date(); // object that represents the current date and time 
 const time = now.getTime(); // will give us the milliseconds since Jan 1, 1970 00:00:00 UTC
@@ -232,7 +9,7 @@ console.log(time); // 1607623412132
 
 current time = 12:54pm (dec 22, 2020)
 
-input: 1:30pm (dec 22, 2020)
+input: 1:30pm (dec 22, 2020)    
 
 SAME TIME OR PRIOR WILL HAVE NEXT DAY
 input: 5:54am (dec 23, 2020)
@@ -526,12 +303,73 @@ class allAlarms{
         else{
             var string = this.#formatTime();
         }
+
         //Adds correct time to dictionary in localstorage
         window.localStorage.setItem(window.localStorage.getItem("numAlarms"), string);
 
         var numAlarms = parseInt(window.localStorage.getItem("numAlarms"));
         window.localStorage.setItem("numAlarms", numAlarms + 1);
         document.getElementById("addAlarmTester").innerHTML = "Added  alarm for " + string;    
+    }
+    #formatTime(){
+        //# means this is a private method
+        var time = this.#futureTime();
+        let name = document.getElementById("name").value;
+        // get name 
+        return  time + "|" + name;
+
+    }
+    
+    #futureTime(){
+        //Handles getting an alarm time that is on the correct day
+        var futureTime = this.#getCorrectTime(0); 
+        var currentTime = this.#currentTime();
+        document.getElementById("tester").innerHTML = futureTime - currentTime;
+
+        //if alarm should be set to the next day
+        if (futureTime <= currentTime) { 
+            // adds a day to correctTime 
+            return (this.#getCorrectTime(1));
+        }
+        //else
+        else {
+            return futureTime;
+        }
+    }
+
+    #getCorrectTime(nextDay){
+        //get current date from forms
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        if (nextDay){
+            dd ++;
+        }
+        //Get time from forms
+        let hr = document.getElementById("hour").value;
+        if (document.getElementById("AMPMButton").value === "PM"){
+            hr += 12;
+        }
+        let min = document.getElementById("minute").value;
+        // if (hr > 25 || hr < 1 || min > 59 || min < 0){
+        //     return "Invalid input";
+        // }
+        
+        var alarmDate = new Date(yyyy, mm, dd, hr, min, 0, 0); // object that represents the date and time from forms
+
+        var time = alarmDate.getTime() // will give us the milliseconds since Jan 1, 1970 00:00:00 UTC to our alarmDate
+        return time / 1000;
+    }
+    timeInSeconds(hr, min, sec){
+        return hr * 360 + min * 60 + sec;
+    }
+
+    #currentTime() {
+        const now = new Date(); // object that represents the current date and time 
+
+        const time = now.getTime(); // will give us the milliseconds since Jan 1, 1970 00:00:00 UTC to the actual date
+        return Math.floor(time / 1000);    
     }
 
     showAlarm(num){
@@ -545,90 +383,7 @@ class allAlarms{
         // add the div to the alarmSection
         document.getElementById("addAlarmTester").appendChild(newDiv);
     }
-    #formatTime(){
-        //# means this is a private method
-        //WORKING CODE (PRIOR TO CHANGES)
-        //TODO format with the name also separated by |
-       let hr = document.getElementById("hour").value; //==========================================================EDIT THIS!=============
-       let min = document.getElementById("minute").value;
-       let name = document.getElementById("name").value;
-       // get name 
 
-       if (hr > 12 || hr < 1 || min > 59 || min < 0){
-           return "Invalid input";
-       }
-
-        if (min > 9){
-            return  this.timeInSeconds(hr, min, 0) + "|" + name;
-        }
-        return  this.timeInSeconds(hr, min, 0) + "|" + name;
-
-    }
-    #formatTime2(){
-
-    }
-    futureTime(){
-        var futureTime = getCorrectTime(0);
-        var currentTime = currentTime();
-        //if alarm should be set to the next day
-        if (futureTime <= current) { 
-            // adds a day to correctTime
-            return (getCorrectTime(1));
-        }
-        //else
-        else {
-            return futureTime;
-        }
-    }
-
-    getCorrectTime(nextDay){  
-        //adds the alarm to localstorage
-        let hr = document.getElementById("hour").value;//==========================================================EDIT THIS!=============
-        let min = document.getElementById("minute").value;
-
-        var today = new Date();
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = today.getFullYear();
-
-        today = mm + '/' + dd + '/' + yyyy;
-        
-        if (nextDay){
-            dd ++;
-        }
-        //document.write(today);
-        document.getElementById("tester").innerHTML = today; 
-
-        // const now = new Date(); // object that represents the current date and time 
-        var alarmDate = new Date(yyyy, mm, dd, hr, min, 0, 0);
-        var time = alarmDate.getTime() // will give us the milliseconds since Jan 1, 1970 00:00:00 UTC to our alarmDate
-        var hours = Math.floor(time / 1000 / 60 / 60) % 24;
-        var minutes =  Math.floor(time / 1000 / 60) % 60;
-        var seconds = Math.floor(time / 1000) % 60;
-
-        return(this.timeInseconds(hours, minutes, seconds));
-
-    }
-    
-    timeInSeconds(hr, min, sec){
-        return hr * 360 + min * 60 + sec;
-    }
-
-    #currentTime() {
-        const now = new Date(); // object that represents the current date and time 
-        const time = now.getTime(); // will give us the milliseconds since Jan 1, 1970 00:00:00 UTC 
-        var hours = Math.floor(time / 1000 / 60 / 60) % 24;
-        var minutes =  Math.floor(time / 1000 / 60) % 60;
-        var seconds = Math.floor(time / 1000) % 60;
-        
-        return this.timeInseconds(hours, minutes, seconds);
-        // want to return hours: minutes
-        // check by seconds 
-
-        // time = 5:50pm 
-        // time = 5:50.00
-         
-    }
     
     // call this function every second in the alarms js
     checkIfAlarmsShouldGoOff(){
@@ -666,13 +421,17 @@ function printAllAlarms(){
         alarms.showAlarm(i)
     }
 }
+
 function tester(){
-    alarms.futureTime();
 }
 
-// function switchAMPM(){
-//     document.getElementById("AMPMButton").innerHTML = "PM";   
-//     if (document.getElementById("AMPMButton").innerHTML === "AM"){
-//         document.getElementById("AMPMButton").innerHTML = "PM";
-//     }
-// }
+function switchAMPM(){
+    if (document.getElementById("AMPMButton").innerHTML === "AM"){
+        document.getElementById("AMPMButton").innerHTML = "PM";
+        document.getElementById("AMPMButton").value = "PM";
+    }
+    else{
+        document.getElementById("AMPMButton").innerHTML = "AM";
+        document.getElementById("AMPMButton").value = "AM";
+    }
+}

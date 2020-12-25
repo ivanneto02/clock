@@ -26,12 +26,13 @@
                 <input type="text" id="name" maxlength="50" value="Alarm Name">
                 <!-- limit imputs so user can not use | -->
             
-                <button id = "AMPMButton" onclick="SwitchAMPM()" value="AM">AM</button>
+                <button id = "AMPMButton" onclick="switchAMPM()" value="AM">AM</button>
+
                 <button onclick="newAlarm()">Add</button>
                 <button onclick="removeAlarms()">Remove all</button>
                 <button onclick="printAllAlarms()">Print all</button>
 
-                <div id="addAlarmTester"></div>
+                <div id="addAlarmTester">addAlarmTester</div>
                 <div id="tester" onclick="tester()"> Tester </div>
 
             </div>  
